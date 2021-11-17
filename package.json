@@ -19,7 +19,8 @@
   "homepage": "https://github.com/leomp12/gcp-vms-cd#readme",
   "dependencies": {
     "@google-cloud/pubsub": "^2.18.2",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
