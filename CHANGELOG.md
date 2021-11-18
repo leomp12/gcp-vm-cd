@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/leomp12/gcp-vms-cd/compare/v0.0.2...v0.0.3) (2021-11-18)
+
+
+### Features
+
+* **logger:** setup winston logger instance ([984ab24](https://github.com/leomp12/gcp-vms-cd/commit/984ab24624e15438aafdeb477e6851a334865280))
+
 ### 0.0.2 (2021-11-17)
 
 
