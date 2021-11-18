@@ -1,10 +1,12 @@
-import { readFile, writeFile } from 'fs/promises';
 import * as path from 'path';
+import { readFile, writeFile } from 'fs/promises';
 import * as os from 'os';
 import { PubSub } from '@google-cloud/pubsub';
+import logger from './lib/logger';
+import runPipeline from './lib/pipeline/run';
 
 const {
-  DATA_FILENAME,
+  DATA_FILEPATH,
   GCP_PROJECT_ID,
   PUBSUB_TOPIC,
   SUBSCRIPTION_PREFIX,
@@ -16,7 +18,7 @@ const {
   });
   const topicName = PUBSUB_TOPIC || 'vms_cd';
 
-  const dataFilepath = path.join(process.cwd(), DATA_FILENAME || 'data.json');
+  const dataFilepath = path.resolve(process.cwd(), DATA_FILEPATH || 'data.json');
   let data;
   try {
     data = JSON.parse(await readFile(dataFilepath));
@@ -45,10 +47,18 @@ const {
   }
 
   subscription.on('message', (message) => {
-    console.log('Received message:', message.data.toString());
+    let messageData;
+    try {
+      messageData = JSON.parse(message.data);
+    } catch (error) {
+      logger.log('Ignoring invalid message:', message.data.toString());
+      return Promise.resolve(0);
+    }
+    logger.log('Starting pipeline with message:', messageData);
+    return runPipeline({ logger, messageData });
   });
 
   subscription.on('error', (error) => {
-    console.error('PubSub subscription error:', error);
+    logger.error('PubSub subscription error:', error);
   });
 })();
