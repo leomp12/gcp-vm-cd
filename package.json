@@ -5,6 +5,7 @@
   "description": "App for simple GCP VMs continuous deployment from GitHub using Pub/Sub",
   "main": "app.js",
   "scripts": {
+    "postinstall": "husky install",
     "release": "standard-version"
   },
   "repository": {
