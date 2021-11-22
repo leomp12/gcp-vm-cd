@@ -47,15 +47,15 @@ const {
   }
 
   subscription.on('message', (message) => {
-    let messageData;
+    let eventData;
     try {
-      messageData = JSON.parse(message.data);
+      eventData = JSON.parse(message.data);
     } catch (error) {
       logger.log('Ignoring invalid message:', message.data.toString());
       return Promise.resolve(0);
     }
-    logger.log('Starting pipeline with message:', messageData);
-    return runPipeline({ logger, messageData });
+    logger.log('Starting pipeline with message:', eventData);
+    return runPipeline(eventData);
   });
 
   subscription.on('error', (error) => {
