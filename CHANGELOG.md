@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.2...v0.3.0) (2021-11-23)
+
+
+### Features
+
+* **command-dir:** check event `commandWorkingDir` exists and set exec cwd ([00672ff](https://github.com/leomp12/gcp-vms-cd/commit/00672ff88225d3719badeff6f67eb168917ff09b))
+
 ### [0.2.2](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.1...v0.2.2) (2021-11-23)
 
 
