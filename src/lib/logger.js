@@ -1,5 +1,5 @@
-import * as path from 'path';
-import { createLogger, format, transports } from 'winston';
+const path = require('path');
+const { createLogger, format, transports } = require('winston');
 
 const {
   SERVICE_NAME,

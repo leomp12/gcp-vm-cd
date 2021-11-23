@@ -1,9 +1,9 @@
-import * as path from 'path';
-import { readFile, writeFile } from 'fs/promises';
-import * as os from 'os';
-import { PubSub } from '@google-cloud/pubsub';
-import logger from './lib/logger';
-import runPipeline from './lib/pipeline/run';
+const path = require('path');
+const { readFile, writeFile } = require('fs/promises');
+const os = require('os');
+const { PubSub } = require('@google-cloud/pubsub');
+const logger = require('./lib/logger');
+const runPipeline = require('./lib/pipeline/run');
 
 const {
   DATA_FILEPATH,

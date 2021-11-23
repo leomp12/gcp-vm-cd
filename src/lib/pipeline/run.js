@@ -1,5 +1,5 @@
-import { exec } from 'child_process';
-import logger from '../logger';
+const { exec } = require('child_process');
+const logger = require('../logger');
 
 const {
   COMMAND_PULL,
