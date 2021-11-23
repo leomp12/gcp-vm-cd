@@ -46,10 +46,10 @@ const {
     try {
       eventData = JSON.parse(message.data);
     } catch (error) {
-      logger.log('Ignoring invalid message:', message.data.toString());
+      logger.info('Ignoring invalid message:', message.data.toString());
       return Promise.resolve(0);
     }
-    logger.log('Starting pipeline with message:', eventData);
+    logger.info('Starting pipeline with message:', eventData);
     return runPipeline(eventData);
   });
 
@@ -57,5 +57,5 @@ const {
     logger.error('PubSub subscription error:', error);
   });
 
-  logger.log(`Watching Pub/Sub topic ${topicName}`);
+  logger.info(`Watching Pub/Sub topic ${topicName}`);
 })();

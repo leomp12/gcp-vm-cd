@@ -23,7 +23,7 @@ module.exports = (eventData) => {
         err.result = stderr;
         return reject(err);
       }
-      logger.log(`\`${cmd}\` => \n${stdout}`);
+      logger.info(`\`${cmd}\` => \n${stdout}`);
       return resolve(stdout);
     });
   });
@@ -40,7 +40,7 @@ module.exports = (eventData) => {
       regexTestOutput = new RegExp(regexTestOutput, 'ig');
     }
     const revertUpdate = (testOutput) => {
-      logger.log(`Test failed after update, reverting to ${currentCommit}`, testOutput);
+      logger.info(`Test failed after update, reverting to ${currentCommit}`, testOutput);
       return execCommand(`git reset ${currentCommit} --hard`)
         .then(() => execCommand(commandRestart))
         .catch(reject);
