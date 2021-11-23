@@ -56,4 +56,6 @@ const {
   subscription.on('error', (error) => {
     logger.error('PubSub subscription error:', error);
   });
+
+  logger.log(`Watching Pub/Sub topic ${topicName}`);
 })();
