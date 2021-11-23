@@ -3,7 +3,6 @@ const { createLogger, format, transports } = require('winston');
 
 const {
   SERVICE_NAME,
-  LOG_LEVEL,
   LOG_FILEPATH,
   LOG_ERROR_FILEPATH,
 } = process.env;
@@ -24,7 +23,6 @@ if (LOG_FILEPATH) {
 }
 
 const logger = createLogger({
-  level: LOG_LEVEL || 'info',
   defaultMeta: { service: SERVICE_NAME || 'node-vms-cd' },
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
