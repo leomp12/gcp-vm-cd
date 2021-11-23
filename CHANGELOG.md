@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.1...v0.2.2) (2021-11-23)
+
+
+### Bug Fixes
+
+* **logger:** fix all `logger.log` to `logger.info` ([3741b1a](https://github.com/leomp12/gcp-vms-cd/commit/3741b1ae34f6f900c6399ac40f3f42715d1bbb06))
+
 ### [0.2.1](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.0...v0.2.1) (2021-11-23)
 
 
