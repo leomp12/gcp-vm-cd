@@ -7,15 +7,12 @@ const runPipeline = require('./lib/pipeline/run');
 
 const {
   DATA_FILEPATH,
-  GCP_PROJECT_ID,
   PUBSUB_TOPIC,
   SUBSCRIPTION_PREFIX,
 } = process.env;
 
 (async () => {
-  const pubsub = new PubSub({
-    projectId: GCP_PROJECT_ID,
-  });
+  const pubsub = new PubSub();
   const topicName = PUBSUB_TOPIC || 'vms_cd';
 
   const dataFilepath = path.resolve(process.cwd(), DATA_FILEPATH || 'data.json');
