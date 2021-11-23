@@ -1,7 +1,10 @@
+const path = require('path');
+const fs = require('fs');
 const { exec } = require('child_process');
 const logger = require('../logger');
 
 const {
+  COMMAND_WORKING_DIR,
   COMMAND_PULL,
   COMMAND_RESTART,
   COMMAND_TEST,
@@ -9,12 +12,19 @@ const {
 } = process.env;
 
 module.exports = (eventData) => {
+  const cwd = eventData.commandWorkingDir || COMMAND_WORKING_DIR;
+  const gitPath = path.join(cwd, '.git');
+  if (!fs.existsSync(gitPath)) {
+    logger.notice(`Event skipped due to non existent dir ${gitPath}`);
+    return Promise.resolve(null);
+  }
+
   const commandPull = eventData.commandPull || COMMAND_PULL || 'git pull';
   const commandRestart = eventData.commandRestart || COMMAND_RESTART || 'npm run restart';
   const commandTest = eventData.commandTest || COMMAND_TEST;
 
   const execCommand = (cmd) => new Promise((resolve, reject) => {
-    exec(cmd, (error, stdout, stderr) => {
+    exec(cmd, { cwd }, (error, stdout, stderr) => {
       if (error) {
         return reject(error);
       }
@@ -40,7 +50,7 @@ module.exports = (eventData) => {
       regexTestOutput = new RegExp(regexTestOutput, 'ig');
     }
     const revertUpdate = (testOutput) => {
-      logger.info(`Test failed after update, reverting to ${currentCommit}`, testOutput);
+      logger.warning(`Test failed after update, reverting to ${currentCommit}`, testOutput);
       return execCommand(`git reset ${currentCommit} --hard`)
         .then(() => execCommand(commandRestart))
         .catch(reject);
