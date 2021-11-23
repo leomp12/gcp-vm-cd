@@ -34,7 +34,11 @@ const {
     const topic = pubsub.topic(topicName);
     const subscriptionPrefix = (SUBSCRIPTION_PREFIX || `${topicName}_${os.hostname()}_`);
     const subscriptionName = `${subscriptionPrefix}${Date.now()}`;
-    [subscription] = await topic.createSubscription(subscriptionName);
+    [subscription] = await topic.createSubscription({
+      name: subscriptionName,
+      enableMessageOrdering: true,
+      expirationPolicy: 'never',
+    });
     writeFile(dataFilepath, JSON.stringify({
       subscriptionName,
       topicName,
