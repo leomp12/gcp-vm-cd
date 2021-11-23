@@ -2,7 +2,6 @@ const path = require('path');
 const { createLogger, format, transports } = require('winston');
 
 const {
-  SERVICE_NAME,
   LOG_LEVEL,
   LOG_FILEPATH,
   LOG_ERROR_FILEPATH,
@@ -25,13 +24,17 @@ if (LOG_FILEPATH) {
 
 const logger = createLogger({
   level: LOG_LEVEL || 'info',
-  defaultMeta: { service: SERVICE_NAME || 'node-vms-cd' },
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
-    format.splat(),
     format.colorize(),
-    format.simple(),
+    format.printf((info) => {
+      let log = `${info.timestamp} ${info.level}: ${info.message}`;
+      if (info.stack) {
+        log += `\n${info.stack}`;
+      }
+      return log;
+    }),
   ),
   transports: transportOptions,
 });
