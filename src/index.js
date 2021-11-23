@@ -31,12 +31,7 @@ const {
     subscription = pubsub.subscription(data.subscriptionName);
   } else {
     // create new subscription
-    let topic;
-    try {
-      [topic] = pubsub.createTopic(topicName);
-    } catch (error) {
-      topic = pubsub.topic(topicName);
-    }
+    const topic = pubsub.topic(topicName);
     const subscriptionPrefix = (SUBSCRIPTION_PREFIX || `${topicName}_${os.hostname()}_`);
     const subscriptionName = `${subscriptionPrefix}${Date.now()}`;
     [subscription] = await topic.createSubscription(subscriptionName);
