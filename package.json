@@ -1,7 +1,7 @@
 {
   "name": "gcp-vms-cd",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "App for simple GCP VMs continuous deployment from GitHub using Pub/Sub",
   "main": "app.js",
   "scripts": {

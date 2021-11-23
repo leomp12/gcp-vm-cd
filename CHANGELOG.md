@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.0...v0.2.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* **logger:** logger for all levels ([f4a79de](https://github.com/leomp12/gcp-vms-cd/commit/f4a79de8b71794a0f81b519efc95965dc7c2cf04))
+* **subscriber:** create pubsub subscriber with no expiration and ordered messages ([7f027ec](https://github.com/leomp12/gcp-vms-cd/commit/7f027ec5de93cc9d71e3daa0dc2ccc50b7e4c7e9))
+* **subscriber:** try to fix pubsub subcriber options ([6dfe694](https://github.com/leomp12/gcp-vms-cd/commit/6dfe694086bb99d713b963517090ced95640963a))
+
 ## [0.2.0](https://github.com/leomp12/gcp-vms-cd/compare/v0.1.3...v0.2.0) (2021-11-23)
 
 
