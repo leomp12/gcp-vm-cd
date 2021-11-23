@@ -36,4 +36,4 @@ const logger = createLogger({
   transports: transportOptions,
 });
 
-export default logger;
+module.exports = logger;

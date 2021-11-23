@@ -8,7 +8,7 @@ const {
   REGEX_TEST_OUTPUT,
 } = process.env;
 
-export default (eventData) => {
+module.exports = (eventData) => {
   const commandPull = eventData.commandPull || COMMAND_PULL || 'git pull';
   const commandRestart = eventData.commandRestart || COMMAND_RESTART || 'npm run restart';
   const commandTest = eventData.commandTest || COMMAND_TEST;
