@@ -1,5 +1,5 @@
-name: 'Trigger deploy'
-description: 'Publish to Pub/Sub VMs CD topic to run deploy pipeline'
+name: 'Trigger deploy to Google Cloud VMs'
+description: 'Publish to Pub/Sub VMs CD topic to start deploy pipeline'
 
 inputs:
   gcp_account_key:
