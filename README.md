@@ -23,7 +23,7 @@ chmod 640 ~/vms-cd-service-account.json
 
 4. Clone repository and set minimal env:
 ```
-git clone https://github.com/leomp12/gcp-vms-cd
+git clone -b main --single-branch https://github.com/leomp12/gcp-vms-cd
 echo "GOOGLE_APPLICATION_CREDENTIALS=\"$HOME/vms-cd-service-account.json\"" > gcp-vms-cd/.env
 ```
 
