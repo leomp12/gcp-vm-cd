@@ -7,8 +7,7 @@ inputs:
     required: true
   pubsub_topic:
     description: 'Pub/Sub topic name'
-    required: true
-    default: 'vms_cd'
+    required: false
   command_working_dir:
     description: 'Working directory for deploy pipeline commands'
     required: true
@@ -30,30 +29,17 @@ outputs: {}
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.ref }}
-
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
         node-version: '16.x'
-    
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('scripts/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
 
-    - name: Install root dependencies
-      working-directory: scripts
-      run: npm ci --only=production
+    - name: Install dependencies
+      working-directory: ${{ github.action_path }}/scripts
+      run: npm i --only=production
 
     - name: Publish Pub/Sub message
-      working-directory: scripts
+      working-directory: ${{ github.action_path }}/scripts
       env:
         GCP_ACCOUNT_KEY: ${{ inputs.who-to-greet }}
         PUBSUB_TOPIC: ${{ inputs.pubsub_topic }}
