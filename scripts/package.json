@@ -1,0 +1,12 @@
+{
+  "name": "gcp-vms-cd-action",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "main": "publish.js",
+  "author": "Leonardo Matos",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.18.3"
+  }
+}
