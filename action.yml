@@ -1,0 +1,68 @@
+name: 'Trigger deploy'
+description: 'Publish to Pub/Sub VMs CD topic to run deploy pipeline'
+
+inputs:
+  gcp_account_key:
+    description: 'Google Cloud service account JSON key'
+    required: true
+  pubsub_topic:
+    description: 'Pub/Sub topic name'
+    required: true
+    default: 'vms_cd'
+  command_working_dir:
+    description: 'Working directory for deploy pipeline commands'
+    required: true
+  command_pull:
+    description: 'eg.: git pull'
+    required: false
+  command_restart:
+    description: 'eg.: npm run restart'
+    required: false
+  command_test:
+    description: 'eg.: npm run test'
+    required: false
+  regex_test_output:
+    description: 'eg.: online'
+    required: false
+
+outputs: {}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('scripts/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install root dependencies
+      working-directory: scripts
+      run: npm ci --only=production
+
+    - name: Publish Pub/Sub message
+      working-directory: scripts
+      env:
+        GCP_ACCOUNT_KEY: ${{ inputs.who-to-greet }}
+        PUBSUB_TOPIC: ${{ inputs.pubsub_topic }}
+        COMMAND_WORKING_DIR: ${{ inputs.command_working_dir }}
+        COMMAND_PULL: ${{ inputs.command_pull }}
+        COMMAND_RESTART: ${{ inputs.command_restart }}
+        COMMAND_TEST: ${{ inputs.command_test }}
+        REGEX_TEST_OUTPUT: ${{ inputs.regex_test_output }}
+      run: |
+        export GOOGLE_APPLICATION_CREDENTIALS=".gcp-service-account.json";
+        echo $GCP_ACCOUNT_KEY > $GOOGLE_APPLICATION_CREDENTIALS;
+        node publish.js;
