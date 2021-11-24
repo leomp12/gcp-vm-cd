@@ -31,3 +31,34 @@ echo "GOOGLE_APPLICATION_CREDENTIALS=\"$HOME/vms-cd-service-account.json\"" > gc
 ```bash
 node gcp-vms-cd/app.js # pm2 start "/home/user/gcp-vms-cd/app.js" --name "deploy" --max-memory-restart 200M --restart-delay=3000
 ```
+
+### Setup GitHub Actions workflow
+
+Add a _secret_ to your GitHub repository with name `GCP_ACCOUNT_KEY` and paste the
+created account key JSON, then setup the workflow file as following:
+
+```yml
+# .github/workflows/trigger-deploy.yml
+name: Trigger deploy to GCP VMs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    name: Publish Pub/Sub message to VMs CD topic
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/leomp12/gcp-vms-cd@main
+        with:
+          gcp_account_key: ${{ secrets.GCP_ACCOUNT_KEY }}
+          pubsub_topic: 'vms_cd'
+          command_working_dir: '/home/user/apps/myapp'
+          command_pull: 'git pull'
+          command_restart: 'npm run restart'
+          command_test: 'npm run test'
+          regex_test_output: 'active'
+```
