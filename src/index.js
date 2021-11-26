@@ -49,6 +49,9 @@ const {
 
   let scheduledRun;
   subscription.on('message', (message) => {
+    if (message.publishTime < data.publishTime) {
+      return Promise.resolve(0);
+    }
     let eventData;
     try {
       eventData = JSON.parse(message.data);
@@ -57,9 +60,6 @@ const {
       return Promise.resolve(0);
     }
     logger.info('Starting pipeline with message:', eventData);
-    if (message.publishTime < data.publishTime) {
-      return Promise.resolve(0);
-    }
     writeDataFile(message.publishTime);
     if (scheduledRun) {
       clearTimeout(scheduledRun.timer);

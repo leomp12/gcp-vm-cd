@@ -27,6 +27,7 @@ const logger = createLogger({
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
+    format.metadata({ fillExcept: ['message', 'level', 'timestamp', 'label', 'stack'] }),
     format.colorize(),
     format.printf((info) => {
       let log = `${info.timestamp} ${info.level}:`;
@@ -35,7 +36,7 @@ const logger = createLogger({
       } else {
         log += `\n${JSON.stringify(info.message, null, 2)}`;
       }
-      if (info.metadata) {
+      if (info.metadata && Object.keys(info.metadata).length) {
         log += `\n${JSON.stringify(info.metadata)}`;
       }
       if (info.stack) {
