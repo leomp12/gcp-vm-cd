@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.3...v0.3.4) (2021-11-26)
+
+
+### Bug Fixes
+
+* **logger:** debug metadata objects if any ([10e31b3](https://github.com/leomp12/gcp-vms-cd/commit/10e31b376873ceeb19fa13f6ea319f8476374976))
+* **subscription-watcher:** prevent multiple runs on restart ([6475109](https://github.com/leomp12/gcp-vms-cd/commit/6475109e278c61c1fc608c182e3037db64976e78))
+
 ### [0.3.3](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.2...v0.3.3) (2021-11-26)
 
 

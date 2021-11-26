@@ -14,6 +14,7 @@ const {
 (async () => {
   const pubsub = new PubSub();
   const topicName = PUBSUB_TOPIC || 'vms_cd';
+  let subscriptionName;
 
   const dataFilepath = path.resolve(process.cwd(), DATA_FILEPATH || 'data.json');
   let data;
@@ -21,26 +22,32 @@ const {
     data = JSON.parse(await readFile(dataFilepath));
   } catch (error) {
     // no data saved yet
+    data = {};
   }
+
+  const writeDataFile = (publishTime) => writeFile(dataFilepath, JSON.stringify({
+    topicName,
+    subscriptionName,
+    publishTime,
+  }, null, 2));
 
   let subscription;
   if (data && data.subscriptionName && data.topicName === topicName) {
     subscription = pubsub.subscription(data.subscriptionName);
+    subscriptionName = data.subscriptionName;
   } else {
     // create new subscription
     const topic = pubsub.topic(topicName);
     const subscriptionPrefix = (SUBSCRIPTION_PREFIX || `${topicName}_${os.hostname()}_`);
-    const subscriptionName = `${subscriptionPrefix}${Date.now()}`;
+    subscriptionName = `${subscriptionPrefix}${Date.now()}`;
     [subscription] = await topic.createSubscription(subscriptionName, {
       enableMessageOrdering: true,
       expirationPolicy: { ttl: null },
     });
-    writeFile(dataFilepath, JSON.stringify({
-      subscriptionName,
-      topicName,
-    }, null, 2));
+    writeDataFile();
   }
 
+  let scheduledRun;
   subscription.on('message', (message) => {
     let eventData;
     try {
@@ -50,7 +57,23 @@ const {
       return Promise.resolve(0);
     }
     logger.info('Starting pipeline with message:', eventData);
-    return runPipeline(eventData);
+    if (message.publishTime < data.publishTime) {
+      return Promise.resolve(0);
+    }
+    writeDataFile(message.publishTime);
+    if (scheduledRun) {
+      clearTimeout(scheduledRun.timer);
+      scheduledRun.resolve(0);
+    }
+    return new Promise((resolve, reject) => {
+      scheduledRun = {
+        timer: setTimeout(() => {
+          runPipeline(eventData).then(resolve).catch(reject);
+          scheduledRun = null;
+        }, 700),
+        resolve,
+      };
+    });
   });
 
   subscription.on('error', (error) => {
