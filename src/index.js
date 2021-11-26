@@ -59,7 +59,6 @@ const {
       logger.info('Ignoring invalid message:', message.data.toString());
       return Promise.resolve(0);
     }
-    logger.info('Starting pipeline with message:', eventData);
     if (scheduledRun) {
       clearTimeout(scheduledRun.timer);
       scheduledRun.resolve(0);
@@ -67,6 +66,7 @@ const {
     return new Promise((resolve, reject) => {
       scheduledRun = {
         timer: setTimeout(() => {
+          logger.info('Starting pipeline with message:', eventData);
           runPipeline(eventData).then(resolve).catch(reject);
           scheduledRun = null;
           data.publishTime = message.publishTime;
