@@ -23,10 +23,12 @@ const json = {
   regexTestOutput: REGEX_TEST_OUTPUT,
 };
 
-try {
-  const messageId = await topic.publishMessage({ json });
-  console.log(`Message ${messageId} published with data:\n${JSON.stringify(json, null, 2)}`);
-} catch (error) {
-  console.error(`Received error while publishing: ${error.message}`);
-  process.exitCode = 1;
-}
+(async () => {
+  try {
+    const messageId = await topic.publishMessage({ json });
+    console.log(`Message ${messageId} published with data:\n${JSON.stringify(json, null, 2)}`);
+  } catch (error) {
+    console.error(error);
+    process.exitCode = 1;
+  }
+})();

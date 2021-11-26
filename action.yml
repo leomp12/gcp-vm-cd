@@ -43,7 +43,7 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}/scripts
       env:
-        GCP_ACCOUNT_KEY: ${{ inputs.who-to-greet }}
+        GCP_ACCOUNT_KEY: ${{ inputs.gcp_account_key }}
         PUBSUB_TOPIC: ${{ inputs.pubsub_topic }}
         COMMAND_WORKING_DIR: ${{ inputs.command_working_dir }}
         COMMAND_PULL: ${{ inputs.command_pull }}
