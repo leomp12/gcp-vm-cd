@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.1...v0.3.2) (2021-11-26)
+
+
+### Features
+
+* **gh-action:** setup composite action to trigger deploy with new pubsub message ([d78f839](https://github.com/leomp12/gcp-vms-cd/commit/d78f8392482c7785d06abbc7765131aecea402d8))
+* **publish:** script to publish to pubsub vms cd topic ([561153d](https://github.com/leomp12/gcp-vms-cd/commit/561153d7549693c7912d56cc3bbbdaf295bf6ff2))
+
+
+### Bug Fixes
+
+* **gh-action:** add required `shell` property ([386d52b](https://github.com/leomp12/gcp-vms-cd/commit/386d52be51162d93f81eaa14d85d032528049447))
+* **gh-action:** fix inputs and steps working directory ([b7e0067](https://github.com/leomp12/gcp-vms-cd/commit/b7e00674606de1b0fe2148c852b2120e7149e59c))
+* **gh-action:** fix using `gcp_account_key` input ([c5884f2](https://github.com/leomp12/gcp-vms-cd/commit/c5884f25b089a0f76e5f0c9a241362f6a5ddb4c7))
+* **publish:** fix `publishMessage` arguments ([cf4fe5d](https://github.com/leomp12/gcp-vms-cd/commit/cf4fe5d3eda1836a64c15ee0b073700624e544c9))
+* **publish:** fix pubsub topic message payload ([fcd90b6](https://github.com/leomp12/gcp-vms-cd/commit/fcd90b64b92ab142a142921ef5e37e3c6a828195))
+* **publish:** js syntax fix (await inside async) ([e8e5549](https://github.com/leomp12/gcp-vms-cd/commit/e8e5549218b307361c2428b64e55e0a9255d66d7))
+* **run-pipeline:** do not exit with error on stderr ([6be16c2](https://github.com/leomp12/gcp-vms-cd/commit/6be16c258a4d88336b0126af927d7b0e514a2b35))
+
 ### [0.3.1](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.0...v0.3.1) (2021-11-23)
 
 ## [0.3.0](https://github.com/leomp12/gcp-vms-cd/compare/v0.2.2...v0.3.0) (2021-11-23)
