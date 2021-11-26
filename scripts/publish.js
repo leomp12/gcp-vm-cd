@@ -24,12 +24,14 @@ const json = {
 };
 
 (async () => {
+  const data = Buffer.from(JSON.stringify(json));
   try {
-    const data = Buffer.from(JSON.stringify(json));
     const messageId = await topic.publishMessage({ data });
     console.log(`Message ${messageId} published with data:\n${JSON.stringify(json, null, 2)}`);
   } catch (error) {
-    console.error(`Received error while publishing: ${error.message}`);
+    const err = new Error(`Received error while publishing: ${error.message}`);
+    err.data = data;
+    console.error(err);
     process.exitCode = 1;
   }
 })();
