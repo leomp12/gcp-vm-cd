@@ -25,7 +25,8 @@ const json = {
 
 (async () => {
   try {
-    const messageId = await topic.publishMessage({ json });
+    const data = Buffer.from(JSON.stringify(json));
+    const messageId = await topic.publishMessage(data);
     console.log(`Message ${messageId} published with data:\n${JSON.stringify(json, null, 2)}`);
   } catch (error) {
     console.error(`Received error while publishing: ${error.message}`);
