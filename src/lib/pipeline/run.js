@@ -34,7 +34,7 @@ module.exports = (eventData) => {
   });
 
   const runTest = (currentCommit, payload) => new Promise((resolve, reject) => {
-    if (!COMMAND_TEST) {
+    if (!commandTest) {
       resolve(payload);
       return;
     }
