@@ -35,10 +35,12 @@ runs:
         node-version: '16.x'
 
     - name: Install dependencies
+      shell: bash
       working-directory: ${{ github.action_path }}/scripts
       run: npm i --only=production
 
     - name: Publish Pub/Sub message
+      shell: bash
       working-directory: ${{ github.action_path }}/scripts
       env:
         GCP_ACCOUNT_KEY: ${{ inputs.who-to-greet }}
