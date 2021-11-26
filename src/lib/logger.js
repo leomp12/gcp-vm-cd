@@ -35,6 +35,9 @@ const logger = createLogger({
       } else {
         log += `\n${JSON.stringify(info.message, null, 2)}`;
       }
+      if (info.metadata) {
+        log += `\n${JSON.stringify(info.metadata)}`;
+      }
       if (info.stack) {
         log += `\n${info.stack}`;
       }
