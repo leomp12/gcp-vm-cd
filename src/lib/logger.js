@@ -29,7 +29,12 @@ const logger = createLogger({
     format.errors({ stack: true }),
     format.colorize(),
     format.printf((info) => {
-      let log = `${info.timestamp} ${info.level}: ${info.message}`;
+      let log = `${info.timestamp} ${info.level}:`;
+      if (typeof info.message === 'string') {
+        log += ` ${info.message}`;
+      } else {
+        log += `\n${JSON.stringify(info.message, null, 2)}`;
+      }
       if (info.stack) {
         log += `\n${info.stack}`;
       }
