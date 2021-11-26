@@ -49,7 +49,7 @@ const {
 
   let scheduledRun;
   subscription.on('message', (message) => {
-    if (message.publishTime < data.publishTime) {
+    if (message.publishTime <= data.publishTime) {
       return Promise.resolve(0);
     }
     let eventData;
@@ -59,8 +59,6 @@ const {
       logger.info('Ignoring invalid message:', message.data.toString());
       return Promise.resolve(0);
     }
-    logger.info('Starting pipeline with message:', eventData);
-    writeDataFile(message.publishTime);
     if (scheduledRun) {
       clearTimeout(scheduledRun.timer);
       scheduledRun.resolve(0);
@@ -68,8 +66,11 @@ const {
     return new Promise((resolve, reject) => {
       scheduledRun = {
         timer: setTimeout(() => {
+          logger.info('Starting pipeline with message:', eventData);
           runPipeline(eventData).then(resolve).catch(reject);
           scheduledRun = null;
+          data.publishTime = message.publishTime;
+          writeDataFile(message.publishTime);
         }, 700),
         resolve,
       };
