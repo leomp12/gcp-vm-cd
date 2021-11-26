@@ -28,12 +28,7 @@ module.exports = (eventData) => {
       if (error) {
         return reject(error);
       }
-      if (stderr) {
-        const err = new Error(`\`${cmd}\` command failed`);
-        err.result = stderr;
-        return reject(err);
-      }
-      logger.info(`\`${cmd}\` => \n${stdout}`);
+      logger.info({ cmd, stdout, stderr });
       return resolve(stdout);
     });
   });
