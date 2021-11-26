@@ -49,7 +49,7 @@ const {
 
   let scheduledRun;
   subscription.on('message', (message) => {
-    if (message.publishTime < data.publishTime) {
+    if (message.publishTime <= data.publishTime) {
       return Promise.resolve(0);
     }
     let eventData;
@@ -60,7 +60,6 @@ const {
       return Promise.resolve(0);
     }
     logger.info('Starting pipeline with message:', eventData);
-    writeDataFile(message.publishTime);
     if (scheduledRun) {
       clearTimeout(scheduledRun.timer);
       scheduledRun.resolve(0);
@@ -70,6 +69,8 @@ const {
         timer: setTimeout(() => {
           runPipeline(eventData).then(resolve).catch(reject);
           scheduledRun = null;
+          data.publishTime = message.publishTime;
+          writeDataFile(message.publishTime);
         }, 700),
         resolve,
       };
