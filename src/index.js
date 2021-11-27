@@ -25,10 +25,10 @@ const {
     data = {};
   }
 
-  const writeDataFile = (publishTime) => writeFile(dataFilepath, JSON.stringify({
+  const writeDataFile = (lastMsgTime) => writeFile(dataFilepath, JSON.stringify({
     topicName,
     subscriptionName,
-    publishTime,
+    lastMsgTime,
   }, null, 2));
 
   let subscription;
@@ -49,9 +49,12 @@ const {
 
   let scheduledRun;
   subscription.on('message', (message) => {
-    if (message.publishTime <= data.publishTime) {
+    const msgTime = message.publishTime.getTime();
+    if (msgTime <= data.lastMsgTime) {
       return Promise.resolve(0);
     }
+    data.lastMsgTime = msgTime;
+    logger.info(`Handling message ${message.id} of ${message.publishTime}`);
     let eventData;
     try {
       eventData = JSON.parse(message.data);
@@ -69,8 +72,7 @@ const {
           logger.info('Starting pipeline with message:', eventData);
           runPipeline(eventData).then(resolve).catch(reject);
           scheduledRun = null;
-          data.publishTime = message.publishTime;
-          writeDataFile(message.publishTime);
+          writeDataFile(msgTime);
         }, 700),
         resolve,
       };
