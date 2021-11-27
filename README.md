@@ -5,7 +5,7 @@ continuous deployment from GitHub using Pub/Sub.
 
 ## Why ?
 
-High availability keeping infrastructure as simple as possible for less complex and stateless instances,
+High availability keeping infrastructure as simple and cheap as possible for less complex and stateless instances,
 no K8s (or Nomad) and no IaaC:
 
 _Cloud Load Balancing > Stateless MIGs > VMs on demand_
