@@ -45,7 +45,7 @@ module.exports = (eventData) => {
       regexTestOutput = new RegExp(regexTestOutput, 'ig');
     }
     const revertUpdate = (testOutput) => {
-      logger.warning(`Test failed after update, reverting to ${currentCommit}`, testOutput);
+      logger.warn(`Test failed after update, reverting to ${currentCommit}`, testOutput);
       return execCommand(`git reset ${currentCommit} --hard`)
         .then(() => execCommand(commandRestart))
         .catch(reject);
