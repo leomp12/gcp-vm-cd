@@ -47,7 +47,7 @@ const {
     writeDataFile();
   }
 
-  let scheduledRun;
+  const scheduledRuns = {};
   subscription.on('message', (message) => {
     const msgTime = message.publishTime.getTime();
     if (msgTime <= data.lastMsgTime) {
@@ -62,16 +62,18 @@ const {
       logger.info('Ignoring invalid message:', message.data.toString());
       return Promise.resolve(0);
     }
+    const runKey = eventData.commandRestart || 'default';
+    const scheduledRun = scheduledRuns[runKey];
     if (scheduledRun) {
       clearTimeout(scheduledRun.timer);
       scheduledRun.resolve(0);
     }
     return new Promise((resolve, reject) => {
-      scheduledRun = {
+      scheduledRuns[runKey] = {
         timer: setTimeout(() => {
           logger.info('Starting pipeline with message:', eventData);
           runPipeline(eventData).then(resolve).catch(reject);
-          scheduledRun = null;
+          scheduledRuns[runKey] = null;
           writeDataFile(msgTime);
         }, 700),
         resolve,

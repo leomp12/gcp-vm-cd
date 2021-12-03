@@ -1,6 +1,21 @@
 # GCP VMs CD
 
-Node app for simple GCP VMs continuous deployment from GitHub using Pub/Sub.
+Node app for simple GCP VMs ([MIGs](https://cloud.google.com/compute/docs/instance-groups))
+continuous deployment from GitHub using Pub/Sub.
+
+## Why ?
+
+High availability keeping infrastructure as simple and cheap as possible for less complex and stateless instances,
+no K8s (or Nomad) and no IaaC:
+
+_Cloud Load Balancing > Stateless MIGs > VMs on demand_
+
+Starts with a simple GCP VM turned to instance model after the first configuration,
+then create instance the group (one by region) and setup load balancer with MIGs backends.
+
+**We can't just mock external IPs because VMs may be created and destroyed on demand,
+so this project is intended to provide simple CI/CD functionality using Pub/Sub (each VM as a subscriber)
+and GitHub Actions.**
 
 ## Getting started
 
