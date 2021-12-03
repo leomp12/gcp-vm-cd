@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.8](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.7...v0.3.8) (2021-12-03)
+
+
+### Bug Fixes
+
+* **logger:** replace undefined `logger.warning` to `logger.warn` ([408a0c4](https://github.com/leomp12/gcp-vms-cd/commit/408a0c43074cd3740fcff8b4a29897c86e732b0f))
+
 ### [0.3.7](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.6...v0.3.7) (2021-12-03)
 
 
