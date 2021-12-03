@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.7](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.6...v0.3.7) (2021-12-03)
+
+
+### Bug Fixes
+
+* **subscription-watcher:** scheduled runs by restart command ([f7cbc7a](https://github.com/leomp12/gcp-vms-cd/commit/f7cbc7ac98b001aad3cdcf81d83f086a408421c3))
+
 ### [0.3.6](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.5...v0.3.6) (2021-11-27)
 
 
