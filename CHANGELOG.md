@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.9](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.8...v0.3.9) (2022-02-13)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([0bd0f6f](https://github.com/leomp12/gcp-vms-cd/commit/0bd0f6f825d739269eb7175ef053c3e7317b0f3a))
+* **env:** ensure loading .env from process root dir ([dce8daa](https://github.com/leomp12/gcp-vms-cd/commit/dce8daaaf84340f293761ebcfbde46575329aad2))
+
 ### [0.3.8](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.7...v0.3.8) (2021-12-03)
 
 
