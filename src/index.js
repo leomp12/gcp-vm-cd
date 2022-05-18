@@ -42,7 +42,7 @@ const {
     subscriptionName = `${subscriptionPrefix}${Date.now()}`;
     [subscription] = await topic.createSubscription(subscriptionName, {
       enableMessageOrdering: true,
-      expirationPolicy: { ttl: null },
+      expirationPolicy: { ttl: '8035200s' }, // 93 days
     });
     writeDataFile();
   }
