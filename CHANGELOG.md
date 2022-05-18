@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.10](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.9...v0.3.10) (2022-05-18)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([f0a04a1](https://github.com/leomp12/gcp-vms-cd/commit/f0a04a1fe2a9ee5c6e951980b0066dfdd39acce5))
+* **subscription-options:** set expiration policy ttl to 93 days ([7b32dcd](https://github.com/leomp12/gcp-vms-cd/commit/7b32dcd4c12dfa4b261f34b74ce0231dd4648347))
+
 ### [0.3.9](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.8...v0.3.9) (2022-02-13)
 
 
