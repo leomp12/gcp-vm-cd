@@ -48,14 +48,14 @@ module.exports = (eventData) => {
       logger.warn(`Test failed after update, reverting to ${currentCommit}`, testOutput);
       return execCommand(`git reset ${currentCommit} --hard`)
         .then(() => execCommand(commandRestart))
-        .catch(reject);
+        .then(resolve).catch(reject);
     };
     execCommand(commandTest)
       .then((stdout) => {
         if (!regexTestOutput.test(stdout)) {
           return revertUpdate();
         }
-        return true;
+        return resolve(true);
       })
       .catch(({ stderr }) => revertUpdate({ stderr }));
   });
