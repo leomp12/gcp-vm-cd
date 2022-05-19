@@ -78,7 +78,7 @@ const {
         }, 700),
         resolve,
       };
-    });
+    }).then(() => message.ack());
   });
 
   subscription.on('error', (error) => {
