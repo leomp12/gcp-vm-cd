@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.12...v1.0.0) (2022-05-20)
+
 ### [0.3.12](https://github.com/leomp12/gcp-vms-cd/compare/v0.3.11...v0.3.12) (2022-05-19)
 
 
